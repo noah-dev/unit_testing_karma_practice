@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo List</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body ng-app="todoApp" ng-controller="todoList">
+    <h1 id="title">Todo List</h1>
+    <hr>
+    <input type="text" ng-model = "filter">
+    <br><br>
+    <table>
+        <tr>
+            <th>Row</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due</th>
+        </tr>
+        <tr ng-repeat = "item in todoList">
+            <th>{{item.idx}}</th>
+            <th>{{item.title}}</th>
+            <th>{{item.desc}}</th>
+            <th>{{item.due}}</th>
+        </tr>
+    </table>
+    <hr>
+    <input type="text" ng-model="newTitle" placeholder="Title">
+    <input type="text" ng-model="newDesc" placeholder="Description">
+    <input type="text" ng-model="newDue" placeholder="Due">
+    <button ng-click="addItem(newTitle, newDesc, newDue)">Add New Item</button>
+    <hr>
+    <input type="number" ng-model="delIDX" placeholder="Row Number">
+    <button ng-click="delItem(delIDX)">Delete Item</button>
+
+    <script src="./bower_components/angular/angular.min.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>

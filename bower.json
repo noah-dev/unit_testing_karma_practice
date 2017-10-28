@@ -1,9 +1,9 @@
 {
-  "name": "jasmine_00",
+  "name": "todo_app_test",
   "description": "",
   "main": "index.js",
   "authors": [
-    "none"
+    "noah-dev"
   ],
   "license": "ISC",
   "homepage": "",

@@ -8,52 +8,38 @@ describe('Core Functions', function() {
     }));
 
     describe('todoList Controller Tests', function() {
-        it('Exports current items as JSON', function() {
-            var $scope = {};
+        var $scope = {};
+        beforeEach(function(){
             var controller = $controller('todoListController', {$scope: $scope});
+        });
 
-            $scope.todoList = [];
+        it('Add item to empty list', function() {
             $scope.addItem("Title 0", "Desc 0", "Due 0");
-
             var expected = [new item(0, "Title 0", "Desc 0", "Due 0")];
             expect($scope.todoList).toEqual(expected);
         });
-    });
-    
-    describe('$scope.delItem', function() {
+
+        it('Delete an item from the list', function() {
+            $scope.addItem("Title 0", "Desc 0", "Due 0");
+            $scope.addItem("Title 1", "Desc 1", "Due 1");
+            var expected = [new item(0, "Title 1", "Desc 1", "Due 1")];
+            $scope.delItem(0);
+            expect($scope.todoList).toEqual(expected);
+        });
+
         it('Exports current items as JSON', function() {
-            var $scope = {};
-            var controller = $controller('todoListController', {$scope: $scope});
-            $scope.todoList = [];
             $scope.addItem("Title 0", "Desc 0", "Due 0");
             $scope.addItem("Title 1", "Desc 1", "Due 1");
             var expected = '[{"idx":0,"title":"Title 0","desc":"Desc 0","due":"Due 0"},{"idx":1,"title":"Title 1","desc":"Desc 1","due":"Due 1"}]'
             $scope.exportList();
             expect($scope.todoListJSON).toEqual(expected);
         });
-    });
 
-    describe('$scope.exportList', function() {
-        it('Exports current items as JSON', function() {
-            var $scope = {};
-            var controller = $controller('todoListController', {$scope: $scope});
-            $scope.todoList = [];
-            $scope.addItem("Title 0", "Desc 0", "Due 0");
-            $scope.addItem("Title 1", "Desc 1", "Due 1");
-            var expected = '[{"idx":0,"title":"Title 0","desc":"Desc 0","due":"Due 0"},{"idx":1,"title":"Title 1","desc":"Desc 1","due":"Due 1"}]'
-            $scope.exportList();
-            expect($scope.todoListJSON).toEqual(expected);
-        });
-    });
 
-    describe('$scope.importList', function() {
-        it('Exports current items as JSON', function() {
-            var $scope = {};
-            var controller = $controller('todoListController', {$scope: $scope});
+        it('Import JSON to list', function() {
             var input = '[{"idx":0,"title":"Title 0","desc":"Desc 0","due":"Due 0"},{"idx":1,"title":"Title 1","desc":"Desc 1","due":"Due 1"}]'
             $scope.importList(input);
             var expected = [{"idx":0,"title":"Title 0","desc":"Desc 0","due":"Due 0"},{"idx":1,"title":"Title 1","desc":"Desc 1","due":"Due 1"}]
-            console.log($scope.todoList);
             expect($scope.todoList).toEqual(expected);
         });
     });

@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<body ng-app="todoApp" ng-controller="todoListController">
+<body ng-app="todoApp" ng-controller="todoListController as tlc">
     <h1 id="title">Todo List</h1>
     <hr>
     Filter <input type="text" ng-model = "search">
@@ -19,7 +19,7 @@
             <th>Description</th>
             <th>Due</th>
         </tr>
-        <tr ng-repeat = "item in todoList | filter:search">
+        <tr ng-repeat = "item in tlc.todoList | filter:search">
             <th>{{item.idx}}</th>
             <th>{{item.title}}</th>
             <th>{{item.desc}}</th>
@@ -30,14 +30,14 @@
     <input type="text" ng-model="newTitle" placeholder="Title">
     <input type="text" ng-model="newDesc" placeholder="Description">
     <input type="text" ng-model="newDue" placeholder="Due">
-    <button ng-click="addItem(newTitle, newDesc, newDue)">Add New Item</button>
+    <button ng-click="tlc.addItem(newTitle, newDesc, newDue)">Add New Item</button>
     <hr>
     <input type="number" ng-model="delIDX" placeholder="Row Number">
-    <button ng-click="delItem(delIDX)">Delete Item</button>
+    <button ng-click="tlc.delItem(delIDX)">Delete Item</button>
     <hr>
-    <textarea name="" id="" cols="100" rows="10" ng-model="todoListJSON"></textarea>
-    <button ng-click="exportList()">Export to JSON</button>
-    <button ng-click="importList(todoListJSON)">Import to List</button>
+    <textarea name="" id="" cols="100" rows="10" ng-model="tlc.todoListJSON"></textarea>
+    <button ng-click="tlc.exportList()">Export to JSON</button>
+    <button ng-click="tlc.importList(tlc.todoListJSON)">Import to List</button>
     <script src="./angular/angular.min.js"></script>
     <script src="./js/app.js"></script>
 </body>

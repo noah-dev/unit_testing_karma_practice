@@ -1,13 +1,51 @@
-class item {
-    constructor(idx, title, desc, due) {
-        this.idx = idx;
-        this.title = title;
-        this.desc = desc;
-        this.due = due;
-    }
+function Item(idx, title, desc, due){
+    this.idx = idx;
+    this.title = title;
+    this.desc = desc;
+    this.due = due;
+}
+
+function manageList(){
+    var _this = this;
+    _this.todoList = [];
+    _this.addItem = addItem;
+    _this.delItem = delItem;
+    _this.exportList = exportList;
+    _this.importList = importList;
+
+    init()
+    function init(){
+        _this.addItem("Title 0", "Desc 0", "Due 0")
+        _this.addItem("Title 1", "Desc 1", "Due 1")
+        _this.addItem("Title 2", "Desc 2", "Due 2")
+    };
+
+    function addItem(title, desc, due){
+        var idx = _this.todoList.length;
+        var newItem = new Item(idx, title, desc, due);
+        _this.todoList.push(newItem);
+    };
+
+    function delItem(idx){
+        _this.todoList.splice(idx, 1);
+        for(var i = 0; i < _this.todoList.length; i++){
+            _this.todoList[i].idx = i;
+        }
+    };
+
+    function exportList(){
+        _this.todoListJSON = angular.toJson(_this.todoList);
+    };
+
+    function importList(listJSONString){
+        _this.todoList = JSON.parse(listJSONString);
+    };
 }
 
 var app = angular.module("todoApp", []);
+app.controller("todoListController", [manageList]) 
+
+/*
 app.controller("todoListController", function($scope) {
     $scope.todoList = [];
     $scope.addItem = addItem;
@@ -24,7 +62,7 @@ app.controller("todoListController", function($scope) {
 
     function addItem(title, desc, due){
         var idx = $scope.todoList.length;
-        var newItem = new item(idx, title, desc, due);
+        var newItem = new Item(idx, title, desc, due);
         $scope.todoList.push(newItem);
     };
 
@@ -43,3 +81,4 @@ app.controller("todoListController", function($scope) {
         $scope.todoList = JSON.parse(listJSONString);
     };
 });
+*/

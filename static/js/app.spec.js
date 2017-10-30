@@ -1,22 +1,23 @@
-describe('Main Todo APP', function() {
+describe('Main Todo App', function() {
     beforeEach(module('todoApp'));
     var $controller
     var $scope = {}
     beforeEach(inject(function(_$controller_){
         $controller = _$controller_;
-        var controller = $controller('todoListController', {$scope: $scope});
+        $scope = $controller('todoListController as tlc', {$scope: $scope});
+        $scope.todoList = [];
     }));
 
     it('Add item to empty list', function() {
         $scope.addItem("Title 0", "Desc 0", "Due 0");
-        var expected = [new item(0, "Title 0", "Desc 0", "Due 0")];
+        var expected = [new Item(0, "Title 0", "Desc 0", "Due 0")];
         expect($scope.todoList).toEqual(expected);
     });
 
     it('Delete an item from the list', function() {
         $scope.addItem("Title 0", "Desc 0", "Due 0");
         $scope.addItem("Title 1", "Desc 1", "Due 1");
-        var expected = [new item(0, "Title 1", "Desc 1", "Due 1")];
+        var expected = [new Item(0, "Title 1", "Desc 1", "Due 1")];
         $scope.delItem(0);
         expect($scope.todoList).toEqual(expected);
     });

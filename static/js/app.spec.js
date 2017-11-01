@@ -1,7 +1,11 @@
 describe('Main Todo App', function() {
     beforeEach(module('todoApp'));
-    var $controller
-    var $scope = {}
+    var $controller;
+    var $scope = {};
+    var Item = {};
+    beforeEach(inject(function(SimpleItem) {
+        Item = SimpleItem;
+    }))
     beforeEach(inject(function(_$controller_){
         $controller = _$controller_;
         $scope = $controller('todoListController as tlc', {$scope: $scope});

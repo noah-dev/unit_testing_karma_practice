@@ -1,11 +1,16 @@
-function SimpleItem(idx, title, desc, due){
-    this.idx = idx;
-    this.title = title;
-    this.desc = desc;
-    this.due = due;
-}
+var app = angular.module("todoApp", []).controller("todoListController", todoListController);
 
-function manageList(Item){
+// https://stackoverflow.com/questions/13619837/angular-js-inject-new-instance-of-class
+app.factory('SimpleItem', function(){
+    return function (idx, title, desc, due){
+        this.idx = idx;
+        this.title = title;
+        this.desc = desc;
+        this.due = due;
+    };
+});
+
+function todoListController($http, SimpleItem){
     var _this = this;
     _this.todoList = [];
     _this.addItem = addItem;
@@ -20,11 +25,13 @@ function manageList(Item){
         _this.addItem("Title 2", "Desc 2", "Due 2")
     };
 
+    /*
     function add(index){
         $http.get("").then(res=>{
             console.log(res);
         });
     };
+    */
 
     function addItem(title, desc, due){
         var idx = _this.todoList.length;
@@ -48,15 +55,13 @@ function manageList(Item){
     };
 }
 
-var app = angular.module("todoApp", []);
+
 /*
 app.controller("todoListController", ['$scope', 'manageList', 'SimpleItem', function($scope, list, item){
     console.log(list)
     //$scope = list(SimpleItem);
 }]);
 */
-app.controller("todoListController", [manageList]);
-
 /*
 app.controller("todoListController", function($scope, $http){
     $scope = new manageList(SimpleItem);

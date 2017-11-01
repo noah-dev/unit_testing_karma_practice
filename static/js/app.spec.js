@@ -5,8 +5,6 @@ describe('Main Todo App', function() {
     beforeEach(inject(function(_$controller_){
         $controller = _$controller_;
         $scope = $controller('todoListController as tlc', {$scope: $scope});
-        console.log($controller);
-        console.log($scope);
         $scope.todoList = [];
     }));
 
